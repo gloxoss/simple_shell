@@ -22,7 +22,7 @@ void _puts(char *str);
 int _strcmp(char *s1, char *s2);
 int _strlen(char *s);
 void prompt(void);
-void exit(void);
+void _exit(void);
 void execute(char *command, char **arguments);
 char **parse(char *line);
 void strip(char *str);

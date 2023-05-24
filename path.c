@@ -1,4 +1,4 @@
-
+#include "main.h"
 /**
  * path - finds the  path of a command
  * @command: Pointer to the command

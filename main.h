@@ -25,5 +25,9 @@ void exit(void);
 void execute(char *command, char **arguments);
 char **parse(char *line);
 void strip(char *str);
+char *path(char *command);
+char *_getenv(const char *name);
+char *_strcat(char *dest, char *src);
+char *_strcpy(char *dest, char *src);
 
 #endif

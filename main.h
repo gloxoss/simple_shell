@@ -16,6 +16,10 @@
 #define MAX_COMMAND_LINE_LEN 1024
 #define MAX_COMMAND_LINE_ARGS 128
 
+int _putchar(char c);
+void _puts(char *str);
+int _strcmp(char *s1, char *s2);
+int _strlen(char *s);
 void prompt(void);
 void exit(void);
 void execute(char *command, char **arguments);

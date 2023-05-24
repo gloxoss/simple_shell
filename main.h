@@ -21,3 +21,5 @@ void exit(void);
 void execute(char *command, char **arguments);
 char **parse(char *line);
 void strip(char *str);
+
+#endif

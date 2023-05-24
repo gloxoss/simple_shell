@@ -2,7 +2,7 @@
  * execute -  execute the code
  *
  * @command :  The command to execute.
- * @arguments The arguments to the command.
+ * @arguments : The arguments to the command.
  *
  * Return :  void
  */

@@ -9,26 +9,10 @@
 void execute(char *command, char **arguments)
 {
 pid_t pid = fork();
+
 if (pid == 0)
 {
-char *path = getenv("PATH");
-char *full_path = NULL;
-for (char *dir in paths)
-{
-full_path = malloc(strlen(dir) + strlen(command) + 2);
-if (full_path == NULL)
-{
-return;
-}
-strcpy(full_path, dir);
-strcat(full_path, "/");
-strcat(full_path, command);
-if (access(full_path, F_OK) == 0)
-{
-break;
-}
-free(full_path);
-}
+char *full_path = path(command);
 if (full_path == NULL)
 {
 write(2, "Command not found: %s\n", command);
@@ -40,9 +24,9 @@ if (status == -1)
 perror(command);
 exit(1);
 }
-}
-else if (pid > 0)
+} else if (pid > 0)
 {
 waitpid(pid, &status, 0);
 }
 }
+

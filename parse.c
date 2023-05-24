@@ -1,3 +1,4 @@
+#include "main.h"
 /**
  * parse -  parses the line into commands and arguments
  *@line : command line

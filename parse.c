@@ -1,7 +1,7 @@
 /**
  * parse -  parses the line into commands and arguments
  *@line : command line
- * Return :  **char
+ * Return :  value
  */
 char **parse(char *line)
 {

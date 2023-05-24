@@ -1,21 +1,8 @@
 #include "main.h"
 
-void prompt(char *line ,  size_t len , int n)
+void prompt()
 {
 write(1, "hsh> ", 5);
-n = getline(&line, &len, stdin);
-if (n == -1)
-{
-if (feof(stdin))
-{
-break;
-}
-else
-{
-perror("getline");
-exit(1);
-}
-}
 }
 
 void exit() {

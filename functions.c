@@ -4,7 +4,7 @@
  * prompt -  start prompt
  * Return: void
  */
-void prompt()
+void prompt(void)
 {
 write(1, "hsh> ", 5);
 }
@@ -12,12 +12,13 @@ write(1, "hsh> ", 5);
  * exit -  exits the shell
  * Return: Void
  */
-void exit() {
+void exit(void)
+{
 write(1, "Exiting...\n", 11);
 exit(0);
 }
 /**
- * Executes -  execute the code
+ * execute -  execute the code
  *
  * @command :  The command to execute.
  * @arguments The arguments to the command.
@@ -43,7 +44,8 @@ return;
 
 int i = 0;
 char *token = strtok(path, ":");
-while (token != NULL) {
+while (token != NULL)
+{
 paths[i] = token;
 token = strtok(NULL, ":");
 i++;
@@ -65,7 +67,8 @@ strcat(full_path_temp, command);
 
 /* Check if the command exists in the current path.*/
 int status = access(full_path_temp, F_OK);
-if (status == 0) {
+if (status == 0)
+{
 full_path = full_path_temp;
 break;
 }
@@ -100,6 +103,7 @@ waitpid(pid, &status, 0);
 
 /**
  * strip - strips the newline character from the end of the line that was read
+ *@str : string
  * Return :  void
  */
 void strip(char *str)
@@ -111,6 +115,7 @@ str[strlen(str) - 1] = '\0';
 }
 /**
  * parse -  parses the line into commands and arguments
+ *@line : command line
  * Return :  **char
  */
 char **parse(char *line)

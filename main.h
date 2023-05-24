@@ -15,3 +15,9 @@
 
 #define MAX_COMMAND_LINE_LEN 1024
 #define MAX_COMMAND_LINE_ARGS 128
+
+void prompt(void);
+void exit(void);
+void execute(char *command, char **arguments);
+char **parse(char *line);
+void strip(char *str);

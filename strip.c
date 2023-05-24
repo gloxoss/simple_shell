@@ -1,3 +1,4 @@
+#include "main.h"
 /**
  * strip - strips the newline character from the end of the line that was read
  *@str : string

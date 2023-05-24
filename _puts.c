@@ -1,12 +1,18 @@
-#include "main.h"
+#include "shell.h"
 
 /**
-  * main - code entry point
-  * Return: 0
-*/
-int main(void)
+  * _puts - prints a string
+  * @str: the string
+  *
+  * Return: void
+  */
+void _puts(char *str)
 {
-	puts("\"Programming is like building a multilingual puzzle");
-	getchar();
-	return (0);
+int i = 0;
+
+while (*(str + i) != 0)
+{
+_putchar(*(str + i));
+i++;
+}
 }

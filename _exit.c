@@ -3,7 +3,7 @@
  * exit -  exits the shell
  * Return: Void
  */
-void _exit(void)
+void exit_shell(void)
 {
 write(1, "Exiting...\n", 11);
 exit(0);

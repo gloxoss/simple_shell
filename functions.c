@@ -1,15 +1,29 @@
 #include "main.h"
 
+/**
+ * prompt -  start prompt
+ * Return: void
+ */
 void prompt()
 {
 write(1, "hsh> ", 5);
 }
-
+/**
+ * exit -  exits the shell
+ * Return: Void
+ */
 void exit() {
 write(1, "Exiting...\n", 11);
 exit(0);
 }
-
+/**
+ * Executes -  execute the code
+ *
+ * @command :  The command to execute.
+ * @arguments The arguments to the command.
+ *
+ * Return :  void
+ */
 void execute(char *command, char **arguments)
 {
 pid_t pid = fork();
@@ -84,6 +98,10 @@ waitpid(pid, &status, 0);
 }
 }
 
+/**
+ * strip - strips the newline character from the end of the line that was read
+ * Return :  void
+ */
 void strip(char *str)
 {
 if (str[strlen(str) - 1] == '\n')
@@ -91,7 +109,10 @@ if (str[strlen(str) - 1] == '\n')
 str[strlen(str) - 1] = '\0';
 }
 }
-
+/**
+ * parse -  parses the line into commands and arguments
+ * Return :  **char
+ */
 char **parse(char *line)
 {
 char **arguments = malloc(sizeof(char *) * (strlen(line) / 2 + 1));

@@ -1,38 +1,41 @@
-int main() {
-  char *line = NULL;
-  size_t len = 0;
-  int n;
+#include "main.h"
+int main(void)
+{
+char *command;
 
-  while (1) {
-    prompt();
+while (1)
+{
 
-    n = getline(&line, &len, stdin);
-    if (n == -1) {
-      if (feof(stdin)) {
-        break;
-      } else {
-        perror("getline");
-        exit(1);
-      }
-    }
+command = get_command();
 
-    strip(line);
 
-    // If the line is empty, do nothing.
-    if (strlen(line) == 0) {
-      continue;
-    }
+if (!is_valid_command(command))
+{
+fprintf(stderr, "Error: Command must be a single word\n");
+free(command);
+continue;
+}
 
-    // Parse the line into commands and arguments.
-    char **arguments = parse(line);
 
-    // Execute the command.
-    if (arguments != NULL) {
-      execute(arguments[0], arguments);
-    }
+if (access(command, X_OK) == -1)
+{
+fprintf(stderr, "Error: Command not found: %s\n", command);
+free(command);
+continue;
+}
 
-    free(arguments);
-  }
 
-  return 0;
+int status = system(command);
+if (status == -1)
+{
+fprintf(stderr, "Error: Failed to execute command\n");
+free(command);
+continue;
+}
+
+
+free(command);
+}
+
+return 0;
 }

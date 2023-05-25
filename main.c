@@ -6,7 +6,7 @@ char *command;
 while (1)
 {
 
-command = get_command();
+command = prompt();
 
 
 if (!is_valid_command(command))

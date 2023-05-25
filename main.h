@@ -16,17 +16,12 @@
 #define MAX_COMMAND_LINE_LEN 1024
 #define MAX_COMMAND_LINE_ARGS 128
 #define MAX_COMMAND_LENGTH 100
+
 int _putchar(char c);
 void _puts(char *str);
 int _strcmp(char *s1, char *s2);
 int _strlen(char *s);
 char *prompt();
-void exit_shell(void);
-void execute(char *command, char **arguments);
-char **parse(char *line);
-void strip(char *str);
-char *path(char *command);
-char *_getenv(const char *name);
 char *_strcat(char *dest, char *src);
 char *_strcpy(char *dest, char *src);
 int is_valid_command(char *command);

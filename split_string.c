@@ -7,14 +7,14 @@
  */
 char **split_string(char *text)
 {
+int index = 0;
+int is_token = 0;
 char **values = malloc(100 * sizeof(char *));
 if (!values)
 {
 perror("Failed ...");
 exit(EXIT_FAILURE);
 }
-int index = 0;
-int is_token = 0;
 char *token = strtok(text, " \t\n");
 if (token == NULL)
 {

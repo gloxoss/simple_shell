@@ -11,7 +11,8 @@ char *command = malloc(MAX_COMMAND_LENGTH * sizeof(char));
 write(STDOUT_FILENO, "$ ", 2);
 
 /* Read the command from the user*/
-ssize_t bytes_read = getline(&command, &(size_t){MAX_COMMAND_LENGTH}, stdin);
+  size_t max_length = MAX_COMMAND_LENGTH;
+ssize_t bytes_read = getline(&command, &(size_t){max_length}, stdin);
 
 if (bytes_read == -1)
 {

@@ -16,7 +16,7 @@
 
 #define MAX_COMMAND_LINE_LEN 1024
 #define MAX_COMMAND_LINE_ARGS 128
-
+#define MAX_COMMAND_LENGTH 100
 int _putchar(char c);
 void _puts(char *str);
 int _strcmp(char *s1, char *s2);

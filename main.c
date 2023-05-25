@@ -5,7 +5,7 @@ char *command;
 
 while (1)
 {
-
+int status;
 command = prompt();
 
 
@@ -24,7 +24,7 @@ free(command);
 continue;
 }
 
-int status;
+
 status = (int)system(command);
 if (status == -1)
 {

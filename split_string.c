@@ -9,6 +9,7 @@ char **split_string(char *text)
 {
 int index = 0;
 int is_token = 0;
+char *token;
 char **tokens = malloc(100 * sizeof(char *));
     
 if (!tokens)
@@ -16,7 +17,7 @@ if (!tokens)
 perror("Failed to allocate memory");
 exit(EXIT_FAILURE);
 }
-char *token = strtok(text, " \t\n");
+token = strtok(text, " \t\n");
     
 while (token != NULL)
 {

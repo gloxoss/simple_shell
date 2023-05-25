@@ -18,7 +18,7 @@ exit(EXIT_FAILURE);
 int index = 0;
 int is_token = 0;
 
-char *token = strtok(line, " \t\n");
+char *token = strtok(text, " \t\n");
     
 while (token != NULL)
 {
@@ -38,3 +38,4 @@ tokens[index] = NULL;
     
 return (tokens);
 }
+

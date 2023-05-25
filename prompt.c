@@ -5,6 +5,7 @@
  */
 char *prompt()
 {
+ssize_t bytes_read;
 char *command = malloc(MAX_COMMAND_LENGTH * sizeof(char));
 
 /* Display the prompt*/
@@ -12,7 +13,7 @@ write(STDOUT_FILENO, "$ ", 2);
 
 /* Read the command from the user*/
 
-ssize_t bytes_read = getline(&command, &(size_t)MAX_COMMAND_LENGTH, stdin);
+bytes_read = getline(&command, &(size_t)MAX_COMMAND_LENGTH, stdin);
 
 if (bytes_read == -1)
 {

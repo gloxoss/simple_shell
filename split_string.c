@@ -7,20 +7,19 @@
  */
 char **split_string(char *text)
 {
-int index = 0;
-int is_token = 0;
-char **values = malloc(100 * sizeof(char *));
-if (!values)
+char **tokens = malloc(100 * sizeof(char *));
+    
+if (!tokens)
 {
-perror("Failed ...");
+perror("Failed to allocate memory");
 exit(EXIT_FAILURE);
 }
-char *token = strtok(text, " \t\n");
-if (token == NULL)
-{
-free(values);
-return NULL;
-}
+
+int index = 0;
+int is_token = 0;
+
+char *token = strtok(line, " \t\n");
+    
 while (token != NULL)
 {
 if (is_token == 0 && token[0] == ' ')
@@ -28,10 +27,14 @@ if (is_token == 0 && token[0] == ' ')
 token = strtok(NULL, " \t\n");
 continue;
 }
-values[index++] = token;
+        
+tokens[index] = token;
+index++;
 is_token = 1;
 token = strtok(NULL, " \t\n");
 }
-values[index] = NULL;
-return values;
+    
+tokens[index] = NULL;
+    
+return (tokens);
 }

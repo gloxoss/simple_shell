@@ -13,7 +13,8 @@ if (!values)
 perror("Failed ...");
 exit(EXIT_FAILURE);
 }
-int index = 0, is_token = 0;
+int index = 0;
+int is_token = 0;
 char *token = strtok(text, " \t\n");
 if (token == NULL)
 {

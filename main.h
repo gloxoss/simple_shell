@@ -24,6 +24,6 @@ int _strlen(char *s);
 char *prompt();
 char *_strcat(char *dest, char *src);
 char *_strcpy(char *dest, char *src);
-int is_valid_command(char *command);
+int is_valid_command(const char *command);
 
 #endif

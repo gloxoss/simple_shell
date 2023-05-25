@@ -21,7 +21,7 @@ int _putchar(char c);
 void _puts(char *str);
 int _strcmp(char *s1, char *s2);
 int _strlen(char *s);
-void prompt(void);
+char *prompt();
 void exit_shell(void);
 void execute(char *command, char **arguments);
 char **parse(char *line);
@@ -30,5 +30,6 @@ char *path(char *command);
 char *_getenv(const char *name);
 char *_strcat(char *dest, char *src);
 char *_strcpy(char *dest, char *src);
+int is_valid_command(char *command);
 
 #endif

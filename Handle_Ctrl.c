@@ -1,3 +1,4 @@
+#include "main.h"
 /*hundle_ctrl*/
 /**
  * handle_sigint - hundles Ctrl-C signal

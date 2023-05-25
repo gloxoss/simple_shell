@@ -8,6 +8,7 @@ char *prompt()
 size_t max_length = MAX_COMMAND_LENGTH;
 char *command = NULL;
 ssize_t bytes_read;
+int length;
 
 command = malloc(max_length * sizeof(char));
 if (!command) {
@@ -32,7 +33,7 @@ exit(1);
 }
 
 /* Remove the newline character at the end of the command*/
-int length = strlen(command);
+length = strlen(command);
 if (command[length - 1] == '\n')
 {
 command[length - 1] = '\0';

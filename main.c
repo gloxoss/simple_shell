@@ -25,7 +25,7 @@ continue;
 }
 
 
-int status = system(command);
+int status = (int)system(command);
 if (status == -1)
 {
 fprintf(stderr, "Error: Failed to execute command\n");

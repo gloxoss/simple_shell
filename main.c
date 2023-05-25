@@ -24,8 +24,8 @@ free(command);
 continue;
 }
 
-
-int status = (int)system(command);
+int status;
+status = (int)system(command);
 if (status == -1)
 {
 fprintf(stderr, "Error: Failed to execute command\n");

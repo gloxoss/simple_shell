@@ -5,15 +5,18 @@
  */
 char *prompt()
 {
+size_t max_length = MAX_COMMAND_LENGTH;
+char *command = NULL;
 ssize_t bytes_read;
-char *command = malloc(MAX_COMMAND_LENGTH * sizeof(char));
 
+command = malloc(max_length * sizeof(char));
+if (!command) {
+perror("Failed to allocate memory");
+exit(EXIT_FAILURE);
+}
+bytes_read = getline(&command, &max_length, stdin);
 /* Display the prompt*/
 write(STDOUT_FILENO, "$ ", 2);
-
-/* Read the command from the user*/
-
-bytes_read = getline(&command, &(size_t)MAX_COMMAND_LENGTH, stdin);
 
 if (bytes_read == -1)
 {

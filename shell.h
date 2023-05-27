@@ -34,16 +34,19 @@
 			0, 0, 0                                                             \
 	}
 
+extern char **environ;
 /**
- *struct builtin - contains a builtin string and related function
- *@type: the builtin command flag
- *@func: the function
+ * struct liststr - singly linked list
+ * @num: the number field
+ * @str: a string
+ * @next: points to the next node
  */
-typedef struct builtin
+typedef struct liststr
 {
-	char *type;
-	int (*func)(info_t *);
-} builtin_table;
+	int num;
+	char *str;
+	struct liststr *next;
+} list_t;
 
 /**
  *struct passinfo - contains pseudo-arguements to pass into a function,
@@ -90,19 +93,16 @@ typedef struct passinfo
 	int histcount;
 } info_t;
 
-extern char **environ;
 /**
- * struct liststr - singly linked list
- * @num: the number field
- * @str: a string
- * @next: points to the next node
+ *struct builtin - contains a builtin string and related function
+ *@type: the builtin command flag
+ *@func: the function
  */
-typedef struct liststr
+typedef struct builtin
 {
-	int num;
-	char *str;
-	struct liststr *next;
-} list_t;
+	char *type;
+	int (*func)(info_t *);
+} builtin_table;
 
 int _putfd(char c, int fd);
 int _putsfd(char *str, int fd);

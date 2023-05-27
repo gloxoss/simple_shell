@@ -106,6 +106,7 @@ typedef struct builtin
 
 int _putfd(char c, int fd);
 int _putsfd(char *str, int fd);
+int print_alias(list_t *node);
 int _strlen(char *);
 int _strcmp(char *, char *);
 char *_strdup(const char *);

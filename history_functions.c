@@ -1,14 +1,14 @@
 #include "shell.h"
 
 /**
- * build_history_list - adds entry to a history linked list
+ * add_history - adds entry to a history linked list
  * @info: Structure containing potential arguments. Used to maintain
  * @buf: buffer
  * @linecount: the history linecount, histcount
  *
  * Return: Always 0
  */
-int build_history_list(info_t *info, char *buf, int linecount)
+int add_history(info_t *info, char *buf, int linecount)
 {
     list_t *node = NULL;
 
@@ -21,12 +21,12 @@ int build_history_list(info_t *info, char *buf, int linecount)
 }
 
 /**
- * write_history - creates a file, or appends to an existing file
+ * create_hitory - creates a file, or appends to an existing file
  * @info: the parameter struct
  *
  * Return: 1 on success, else -1
  */
-int write_history(info_t *info)
+int create_hitory(info_t *info)
 {
     ssize_t fd;
     char *filename = get_history_file(info);
@@ -41,10 +41,10 @@ int write_history(info_t *info)
         return (-1);
     for (node = info->history; node; node = node->next)
     {
-        _putsfd(node->str, fd);
-        _putfd('\n', fd);
+        print_input(node->str, fd);
+        print_charfd('\n', fd);
     }
-    _putfd(BUF_FLUSH, fd);
+    print_charfd(BUF_FLUSH, fd);
     close(fd);
     return (1);
 }
@@ -60,7 +60,7 @@ char *get_history_file(info_t *info)
 {
     char *buf, *dir;
 
-    dir = _getenv(info, "HOME=");
+    dir = get_env(info, "HOME=");
     if (!dir)
         return (NULL);
     buf = malloc(sizeof(char) * (_strlen(dir) + _strlen(HIST_FILE) + 2));
@@ -108,11 +108,11 @@ int read_history(info_t *info)
         if (buf[i] == '\n')
         {
             buf[i] = 0;
-            build_history_list(info, buf + last, linecount++);
+            add_history(info, buf + last, linecount++);
             last = i + 1;
         }
     if (last != i)
-        build_history_list(info, buf + last, linecount++);
+        add_history(info, buf + last, linecount++);
     free(buf);
     info->histcount = linecount;
     while (info->histcount-- >= HIST_MAX)

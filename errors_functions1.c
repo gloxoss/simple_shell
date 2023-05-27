@@ -45,21 +45,21 @@ char *convert_number(long int num, int base, int flags)
  */
 void print_error(info_t *info, char *estr)
 {
-    _eputs(info->fname);
-    _eputs(": ");
-    print_d(info->line_count, STDERR_FILENO);
-    _eputs(": ");
-    _eputs(info->argv[0]);
-    _eputs(": ");
-    _eputs(estr);
+    print_instr(info->fname);
+    print_instr(": ");
+    print_digit(info->line_count, STDERR_FILENO);
+    print_instr(": ");
+    print_instr(info->argv[0]);
+    print_instr(": ");
+    print_instr(estr);
 }
 /**
- * _erratoi - converts a string to an integer
+ * error_atoi - converts a string to an integer
  * @s: the string to be converted
  * Return: 0 if no numbers in string, converted number otherwise
  *       -1 on error
  */
-int _erratoi(char *s)
+int error_atoi(char *s)
 {
     int i = 0;
     unsigned long int result = 0;
@@ -82,20 +82,20 @@ int _erratoi(char *s)
 }
 
 /**
- * print_d - function prints a decimal (integer) number (base 10)
+ * print_digit - function prints a decimal (integer) number (base 10)
  * @input: the input
  * @fd: the filedescriptor to write to
  *
  * Return: number of characters printed
  */
-int print_d(int input, int fd)
+int print_digit(int input, int fd)
 {
     int (*__putchar)(char) = _putchar;
     int i, count = 0;
     unsigned int _abs_, current;
 
     if (fd == STDERR_FILENO)
-        __putchar = _eputchar;
+        __putchar = write_chatrr;
     if (input < 0)
     {
         _abs_ = -input;

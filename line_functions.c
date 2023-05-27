@@ -1,14 +1,14 @@
 #include "shell.h"
 
 /**
- * input_buf - buffers chained commands
+ * buffer_input - buffers chained commands
  * @info: parameter struct
  * @buf: address of buffer
  * @len: address of len var
  *
  * Return: bytes read
  */
-ssize_t input_buf(info_t *info, char **buf, size_t *len)
+ssize_t buffer_input(info_t *info, char **buf, size_t *len)
 {
     ssize_t r = 0;
     size_t len_p = 0;
@@ -17,11 +17,11 @@ ssize_t input_buf(info_t *info, char **buf, size_t *len)
     {
         free(*buf);
         *buf = NULL;
-        signal(SIGINT, sigintHandler);
+        signal(SIGINT, block_cc);
 #if USE_GETLINE
         r = getline(buf, &len_p, stdin);
 #else
-        r = _getline(info, buf, &len_p);
+        r = get_line(info, buf, &len_p);
 #endif
         if (r > 0)
         {
@@ -32,7 +32,7 @@ ssize_t input_buf(info_t *info, char **buf, size_t *len)
             }
             info->linecount_flag = 1;
             remove_comments(*buf);
-            build_history_list(info, *buf, info->histcount++);
+            add_history(info, *buf, info->histcount++);
             {
                 *len = r;
                 info->cmd_buf = buf;
@@ -43,14 +43,14 @@ ssize_t input_buf(info_t *info, char **buf, size_t *len)
 }
 
 /**
- * read_buf - reads a buffer
+ * buffer_read - reads a buffer
  * @info: parameter struct
  * @buf: buffer
  * @i: size
  *
  * Return: r
  */
-ssize_t read_buf(info_t *info, char *buf, size_t *i)
+ssize_t buffer_read(info_t *info, char *buf, size_t *i)
 {
     ssize_t r = 0;
 
@@ -63,12 +63,12 @@ ssize_t read_buf(info_t *info, char *buf, size_t *i)
 }
 
 /**
- * sigintHandler - blocks ctrl-C
+ * block_cc - blocks ctrl-C
  * @sig_num: the signal number
  *
  * Return: void
  */
-void sigintHandler(__attribute__((unused)) int sig_num)
+void block_cc(__attribute__((unused)) int sig_num)
 {
     _puts("\n");
     _puts("$ ");
@@ -76,14 +76,14 @@ void sigintHandler(__attribute__((unused)) int sig_num)
 }
 
 /**
- * _getline - gets the next line of input from STDIN
+ * get_line - gets the next line of input from STDIN
  * @info: parameter struct
  * @ptr: address of pointer to buffer, preallocated or NULL
  * @length: size of preallocated ptr buffer if not NULL
  *
  * Return: s
  */
-int _getline(info_t *info, char **ptr, size_t *length)
+int get_line(info_t *info, char **ptr, size_t *length)
 {
     static char buf[READ_BUF_SIZE];
     static size_t i, len;
@@ -97,7 +97,7 @@ int _getline(info_t *info, char **ptr, size_t *length)
     if (i == len)
         i = len = 0;
 
-    r = read_buf(info, buf, &len);
+    r = buffer_read(info, buf, &len);
     if (r == -1 || (r == 0 && len == 0))
         return (-1);
 
@@ -135,7 +135,7 @@ ssize_t get_input(info_t *info)
     char **buf_p = &(info->arg), *p;
 
     _putchar(BUF_FLUSH);
-    r = input_buf(info, &buf, &len);
+    r = buffer_input(info, &buf, &len);
     if (r == -1)
         return (-1);
     if (len)

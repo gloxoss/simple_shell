@@ -18,7 +18,7 @@ void fork_cmd(info_t *info)
     }
     if (child_pid == 0)
     {
-        if (execve(info->path, info->argv, get_environ(info)) == -1)
+        if (execve(info->path, info->argv, get_envi(info)) == -1)
         {
             free_info(info, 1);
             if (errno == EACCES)
@@ -51,13 +51,13 @@ int find_builtin(info_t *info)
 {
     int i, built_in_ret = -1;
     builtin_table builtintbl[] = {
-        {"exit", _myexit},
-        {"env", _myenv},
-        {"help", _myhelp},
+        {"exit", exit_shell},
+        {"env", myenv},
+        {"help", help_call},
         {"history", _myhistory},
-        {"setenv", _mysetenv},
-        {"unsetenv", _myunsetenv},
-        {"cd", _mycd},
+        {"setenv", myset_env},
+        {"unsetenv", myremove_env},
+        {"cd", change_cd},
         {"alias", _myalias},
         {NULL, NULL}};
 
@@ -71,13 +71,13 @@ int find_builtin(info_t *info)
     return (built_in_ret);
 }
 /**
- * hsh - main shell loop
+ * shell_main - main shell loop
  * @info: the parameter & return info struct
  * @av: the argument vector from main()
  *
  * Return: 0 on success, 1 on error, or error code
  */
-int hsh(info_t *info, char **av)
+int shell_main(info_t *info, char **av)
 {
     ssize_t r = 0;
     int builtin_ret = 0;
@@ -87,7 +87,7 @@ int hsh(info_t *info, char **av)
         clear_info(info);
         if (interactive(info))
             _puts("$ ");
-        _eputchar(BUF_FLUSH);
+        write_chatrr(BUF_FLUSH);
         r = get_input(info);
         if (r != -1)
         {
@@ -100,7 +100,7 @@ int hsh(info_t *info, char **av)
             _putchar('\n');
         free_info(info, 0);
     }
-    write_history(info);
+    create_hitory(info);
     free_info(info, 1);
     if (!interactive(info) && info->status)
         exit(info->status);
@@ -135,7 +135,7 @@ void find_cmd(info_t *info)
     if (!k)
         return;
 
-    path = find_path(info, _getenv(info, "PATH="), info->argv[0]);
+    path = find_path(info, get_env(info, "PATH="), info->argv[0]);
     if (path)
     {
         info->path = path;
@@ -143,7 +143,7 @@ void find_cmd(info_t *info)
     }
     else
     {
-        if ((interactive(info) || _getenv(info, "PATH=") || info->argv[0][0] == '/') && is_cmd(info, info->argv[0]))
+        if ((interactive(info) || get_env(info, "PATH=") || info->argv[0][0] == '/') && is_cmd(info, info->argv[0]))
             fork_cmd(info);
         else if (*(info->arg) != '\n')
         {

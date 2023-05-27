@@ -22,7 +22,7 @@ void free_info(info_t *info, int all)
             free_list(&(info->alias));
         ffree(info->environ);
         info->environ = NULL;
-        bfree((void **)info->cmd_buf);
+        free_p((void **)info->cmd_buf);
         if (info->readfd > 2)
             close(info->readfd);
         _putchar(BUF_FLUSH);
@@ -40,7 +40,7 @@ void set_info(info_t *info, char **av)
     info->fname = av[0];
     if (info->arg)
     {
-        info->argv = strtow(info->arg, " \t");
+        info->argv = split_to_words2(info->arg, " \t");
         if (!info->argv)
         {
 

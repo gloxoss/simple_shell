@@ -126,14 +126,14 @@ int delete_node_at_index(list_t **head, unsigned int index)
 }
 
 /**
- * add_node - adds a node to the start of the list
+ * add_node_start - adds a node to the start of the list
  * @head: address of pointer to head node
  * @str: str field of node
  * @num: node index used by history
  *
  * Return: size of list
  */
-list_t *add_node(list_t **head, const char *str, int num)
+list_t *add_node_start(list_t **head, const char *str, int num)
 {
     list_t *new_head;
 

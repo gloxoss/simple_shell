@@ -9,7 +9,7 @@
 char **list_to_strings(list_t *head)
 {
     list_t *node = head;
-    size_t i = list_len(head), j;
+    size_t i = list_length(head), j;
     char **strs;
     char *str;
 
@@ -37,12 +37,12 @@ char **list_to_strings(list_t *head)
 }
 
 /**
- * list_len - determines length of linked list
+ * list_length - determines length of linked list
  * @h: pointer to first node
  *
  * Return: size of list
  */
-size_t list_len(const list_t *h)
+size_t list_length(const list_t *h)
 {
     size_t i = 0;
 

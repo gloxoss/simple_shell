@@ -105,6 +105,7 @@ typedef struct builtin
 } builtin_table;
 
 int _putfd(char c, int fd);
+int set_alias(info_t *info, char *str);
 int _putsfd(char *str, int fd);
 int print_alias(list_t *node);
 int _strlen(char *);
